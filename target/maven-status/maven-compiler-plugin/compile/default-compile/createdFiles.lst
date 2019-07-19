@@ -1,0 +1,6 @@
+com\yem\member\MemberApplication.class
+com\yem\member\config\druid\DruidConfiguration.class
+com\yem\member\dao\YemMemberMapper.class
+com\yem\member\controller\MemberController.class
+com\yem\member\config\ResourceServerConfig.class
+com\yem\member\service\MemberService.class

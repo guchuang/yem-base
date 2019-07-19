@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yem.db.dao.YemSubscribeMapper">
+  <resultMap id="BaseResultMap" type="com.yem.entity.YemSubscribe">
+    <id column="subscribe_id" jdbcType="VARCHAR" property="subscribeId" />
+    <result column="member_code" jdbcType="BIGINT" property="memberCode" />
+    <result column="server_code" jdbcType="BIGINT" property="serverCode" />
+    <result column="shop_code" jdbcType="BIGINT" property="shopCode" />
+    <result column="subscribe_time" jdbcType="DATE" property="subscribeTime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="valid" jdbcType="BIT" property="valid" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="update_time" jdbcType="DATE" property="updateTime" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    subscribe_id, member_code, server_code, shop_code, subscribe_time, remark, valid, 
+    create_time, create_by, update_time, update_by
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yem_subscribe
+    where subscribe_id = #{subscribeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from yem_subscribe
+    where subscribe_id = #{subscribeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yem.entity.YemSubscribe">
+    insert into yem_subscribe (subscribe_id, member_code, server_code, 
+      shop_code, subscribe_time, remark, 
+      valid, create_time, create_by, 
+      update_time, update_by)
+    values (#{subscribeId,jdbcType=VARCHAR}, #{memberCode,jdbcType=BIGINT}, #{serverCode,jdbcType=BIGINT}, 
+      #{shopCode,jdbcType=BIGINT}, #{subscribeTime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, 
+      #{valid,jdbcType=BIT}, #{createTime,jdbcType=DATE}, #{createBy,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=DATE}, #{updateBy,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yem.entity.YemSubscribe">
+    insert into yem_subscribe
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="subscribeId != null">
+        subscribe_id,
+      </if>
+      <if test="memberCode != null">
+        member_code,
+      </if>
+      <if test="serverCode != null">
+        server_code,
+      </if>
+      <if test="shopCode != null">
+        shop_code,
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="subscribeId != null">
+        #{subscribeId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberCode != null">
+        #{memberCode,jdbcType=BIGINT},
+      </if>
+      <if test="serverCode != null">
+        #{serverCode,jdbcType=BIGINT},
+      </if>
+      <if test="shopCode != null">
+        #{shopCode,jdbcType=BIGINT},
+      </if>
+      <if test="subscribeTime != null">
+        #{subscribeTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yem.entity.YemSubscribe">
+    update yem_subscribe
+    <set>
+      <if test="memberCode != null">
+        member_code = #{memberCode,jdbcType=BIGINT},
+      </if>
+      <if test="serverCode != null">
+        server_code = #{serverCode,jdbcType=BIGINT},
+      </if>
+      <if test="shopCode != null">
+        shop_code = #{shopCode,jdbcType=BIGINT},
+      </if>
+      <if test="subscribeTime != null">
+        subscribe_time = #{subscribeTime,jdbcType=DATE},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=BIGINT},
+      </if>
+    </set>
+    where subscribe_id = #{subscribeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yem.entity.YemSubscribe">
+    update yem_subscribe
+    set member_code = #{memberCode,jdbcType=BIGINT},
+      server_code = #{serverCode,jdbcType=BIGINT},
+      shop_code = #{shopCode,jdbcType=BIGINT},
+      subscribe_time = #{subscribeTime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=DATE},
+      create_by = #{createBy,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=DATE},
+      update_by = #{updateBy,jdbcType=BIGINT}
+    where subscribe_id = #{subscribeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yem.db.dao.YemMemberMapper">
+  <resultMap id="BaseResultMap" type="com.yem.entity.YemMember">
+    <id column="member_id" jdbcType="VARCHAR" property="memberId" />
+    <result column="member_code" jdbcType="BIGINT" property="memberCode" />
+    <result column="member_name" jdbcType="VARCHAR" property="memberName" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="valid" jdbcType="BIT" property="valid" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="create_by" jdbcType="BIGINT" property="createBy" />
+    <result column="update_time" jdbcType="DATE" property="updateTime" />
+    <result column="update_by" jdbcType="BIGINT" property="updateBy" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    member_id, member_code, member_name, mobile, open_id, valid, create_time, create_by, 
+    update_time, update_by
+  </sql>
+  <select id="selectByMemberCode" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yem_member
+    where valid = 1 and member_code = #{memberCode,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from yem_member
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.yem.entity.YemMember">
+    insert into yem_member (member_id, member_code, member_name, 
+      mobile, open_id, valid, 
+      create_time, create_by, update_time, 
+      update_by)
+    values (#{memberId,jdbcType=VARCHAR}, #{memberCode,jdbcType=BIGINT}, #{memberName,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, #{valid,jdbcType=BIT}, 
+      #{createTime,jdbcType=DATE}, #{createBy,jdbcType=BIGINT}, #{updateTime,jdbcType=DATE}, 
+      #{updateBy,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yem.entity.YemMember">
+    insert into yem_member
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        member_id,
+      </if>
+      <if test="memberCode != null">
+        member_code,
+      </if>
+      <if test="memberName != null">
+        member_name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="openId != null">
+        open_id,
+      </if>
+      <if test="valid != null">
+        valid,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="updateBy != null">
+        update_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        #{memberId,jdbcType=VARCHAR},
+      </if>
+      <if test="memberCode != null">
+        #{memberCode,jdbcType=BIGINT},
+      </if>
+      <if test="memberName != null">
+        #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        #{valid,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="updateBy != null">
+        #{updateBy,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByMemberCodeSelective" parameterType="com.yem.entity.YemMember">
+    update yem_member
+    <set>
+      <if test="memberCode != null">
+        member_code = #{memberCode,jdbcType=BIGINT},
+      </if>
+      <if test="memberName != null">
+        member_name = #{memberName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null">
+        valid = #{valid,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="updateBy != null">
+        update_by = #{updateBy,jdbcType=BIGINT},
+      </if>
+    </set>
+    where member_code = #{memberCode,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yem.entity.YemMember">
+    update yem_member
+    set member_code = #{memberCode,jdbcType=BIGINT},
+      member_name = #{memberName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR},
+      valid = #{valid,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=DATE},
+      create_by = #{createBy,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=DATE},
+      update_by = #{updateBy,jdbcType=BIGINT}
+    where member_id = #{memberId,jdbcType=VARCHAR}
+  </update>
+  
+  <select id="selectMemberList" parameterType="com.yem.dto.YemMemberDTO" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from yem_member
+    where valid = 1
+    <if test="memberCode != null">
+		and member_code = #{memberCode,jdbcType=BIGINT}
+    </if>
+    <if test="memberName != null">
+		and member_name = #{memberName,jdbcType=VARCHAR}
+    </if>
+    <if test="mobile != null">
+		mobile = #{mobile,jdbcType=VARCHAR}
+    </if>
+    <if test="openId != null">
+		open_id = #{openId,jdbcType=VARCHAR}
+    </if>
+    <if test="valid != null">
+		valid = #{valid,jdbcType=BIT}
+    </if>
+    <if test="createTime != null">
+		create_time = #{createTime,jdbcType=DATE}
+    </if>
+    <if test="createBy != null">
+		create_by = #{createBy,jdbcType=BIGINT}
+    </if>
+    <if test="updateTime != null">
+		update_time = #{updateTime,jdbcType=DATE}
+    </if>
+    <if test="updateBy != null">
+		update_by = #{updateBy,jdbcType=BIGINT}
+    </if>
+    limit #{start, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+  </select>
+  
+  
+  <select id="selectMemberListCount" parameterType="com.yem.dto.YemMemberDTO" resultType="java.lang.Integer">
+    select 
+    count(member_code)
+    from yem_member
+    where valid = 1
+    <if test="memberCode != null">
+		and member_code = #{memberCode,jdbcType=BIGINT}
+    </if>
+    <if test="memberName != null">
+		and member_name = #{memberName,jdbcType=VARCHAR}
+    </if>
+    <if test="mobile != null">
+		and mobile = #{mobile,jdbcType=VARCHAR}
+    </if>
+    <if test="openId != null">
+		and open_id = #{openId,jdbcType=VARCHAR}
+    </if>
+    <if test="createTime != null">
+		and create_time = #{createTime,jdbcType=DATE}
+    </if>
+    <if test="createBy != null">
+		and create_by = #{createBy,jdbcType=BIGINT}
+    </if>
+    <if test="updateTime != null">
+		and update_time = #{updateTime,jdbcType=DATE}
+    </if>
+    <if test="updateBy != null">
+		and update_by = #{updateBy,jdbcType=BIGINT}
+    </if>
+  </select>
+</mapper>
