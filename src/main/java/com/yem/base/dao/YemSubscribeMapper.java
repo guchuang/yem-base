@@ -1,17 +1,20 @@
 package com.yem.base.dao;
 
+import java.util.List;
+
+import com.yem.dto.YemSubscribeDTO;
 import com.yem.entity.YemSubscribe;
 
 public interface YemSubscribeMapper {
-    int deleteByPrimaryKey(String subscribeId);
-
-    int insert(YemSubscribe record);
-
+	
     int insertSelective(YemSubscribe record);
 
-    YemSubscribe selectByPrimaryKey(String subscribeId);
+    YemSubscribe selectBySubscribeCode(Long subscribeCode);
 
-    int updateByPrimaryKeySelective(YemSubscribe record);
+    List<YemSubscribe> selectSubscribeList(YemSubscribeDTO dto);
 
-    int updateByPrimaryKey(YemSubscribe record);
+    int selectSubscribeListCount(YemSubscribeDTO dto);
+
+    int updateBySubscribeCodeSelective(YemSubscribe record);
+
 }

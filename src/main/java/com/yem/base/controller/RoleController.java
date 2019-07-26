@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yem.base.service.impl.YemBaseServiceImpl;
-import com.yem.base.service.impl.YemUserServiceImpl;
+import com.yem.base.service.impl.YemRoleServiceImpl;
 import com.yem.constant.ApiConstant;
 import com.yem.constant.Constants;
-import com.yem.dto.YemUserDTO;
-import com.yem.entity.YemUser;
+import com.yem.dto.YemRoleDTO;
+import com.yem.entity.YemRole;
 import com.yem.enums.McCodeTypeEnum;
-import com.yem.request.AddYemUserRequest;
-import com.yem.request.ModifyYemUserRequest;
-import com.yem.request.QueryYemUserListRequest;
-import com.yem.request.QueryYemUserRequest;
-import com.yem.response.AddYemUserResponse;
-import com.yem.response.ModifyYemUserResponse;
-import com.yem.response.QueryYemUserListResponse;
-import com.yem.response.QueryYemUserResponse;
+import com.yem.request.AddYemRoleRequest;
+import com.yem.request.ModifyYemRoleRequest;
+import com.yem.request.QueryYemRoleListRequest;
+import com.yem.request.QueryYemRoleRequest;
+import com.yem.response.AddYemRoleResponse;
+import com.yem.response.ModifyYemRoleResponse;
+import com.yem.response.QueryYemRoleListResponse;
+import com.yem.response.QueryYemRoleResponse;
 import com.yem.utils.DateUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 用户基础功能
+ * 角色基础功能
  * Function: TODO ADD FUNCTION. <br/>
  * Reason: TODO ADD REASON(可选). <br/>
  * date: 2019年7月10日 下午1:53:37 <br/>
@@ -38,50 +38,46 @@ import lombok.extern.slf4j.Slf4j;
  * @since JDK 1.8
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/role")
 @Slf4j
 public class RoleController {
 	
 	@Autowired
-	private YemUserServiceImpl userService;
+	private YemRoleServiceImpl roleService;
 	
 	@Autowired
 	private YemBaseServiceImpl baseServiceImpl;
 
     @PostMapping("/query")
-    public QueryYemUserResponse query(HttpServletRequest request) {
-    	log.info("开始用户详解查询接口");
+    public QueryYemRoleResponse query(HttpServletRequest request) {
+    	log.info("开始角色详解查询接口");
     	
-    	QueryYemUserResponse resp = new QueryYemUserResponse();
+    	QueryYemRoleResponse resp = new QueryYemRoleResponse();
     	
     	String param = request.getHeader(ApiConstant.ROUTE_KEY);
     	
-    	QueryYemUserRequest reqModel = (QueryYemUserRequest) JSONObject.parseObject(param, 
-    			QueryYemUserRequest.class);
+    	QueryYemRoleRequest reqModel = (QueryYemRoleRequest) JSONObject.parseObject(param, 
+    			QueryYemRoleRequest.class);
     	
-    	resp.setYemUser(userService.getUserByCode(reqModel.getUserCode()));
+    	resp.setYemRole(roleService.getRoleByCode(reqModel.getRoleCode()));
     	
     	return resp;
     }
 
     @PostMapping("/list")
-    public QueryYemUserListResponse list(HttpServletRequest request) {
-    	log.info("开始用户列表查询接口");
+    public QueryYemRoleListResponse list(HttpServletRequest request) {
+    	log.info("开始角色列表查询接口");
     	
-    	QueryYemUserListResponse resp = new QueryYemUserListResponse();
+    	QueryYemRoleListResponse resp = new QueryYemRoleListResponse();
     	
     	String param = request.getHeader(ApiConstant.ROUTE_KEY);
     	
-    	QueryYemUserListRequest reqModel = (QueryYemUserListRequest) JSONObject.parseObject(param, 
-    			QueryYemUserListRequest.class);
+    	QueryYemRoleListRequest reqModel = (QueryYemRoleListRequest) JSONObject.parseObject(param, 
+    			QueryYemRoleListRequest.class);
     	
-    	YemUserDTO dto = new YemUserDTO();
-    	dto.setUserCode(reqModel.getUserCode());
-    	dto.setUserName(reqModel.getUserName());
-    	dto.setEmail(reqModel.getEmail());
-    	dto.setMobile(reqModel.getMobile());
-    	dto.setSex(reqModel.getSex());
-    	dto.setShopCode(reqModel.getShopCode());
+    	YemRoleDTO dto = new YemRoleDTO();
+    	dto.setRoleCode(reqModel.getRoleCode());
+    	dto.setRoleName(reqModel.getRoleName());
     	dto.setValid(reqModel.getValid());
     	dto.setCreateBy(reqModel.getCreateBy());
     	dto.setCreateTime(reqModel.getCreateTime());
@@ -91,8 +87,8 @@ public class RoleController {
     	dto.setPageSize(reqModel.getPageSize());
     	
     	
-    	resp.setYemUsers(userService.getUserList(dto));
-    	resp.setTotalPage(userService.getUserListCount(dto));
+    	resp.setYemRoles(roleService.getRoleList(dto));
+    	resp.setTotalPage(roleService.getRoleListCount(dto));
     	resp.setPageNo(reqModel.getPageNo());
     	resp.setPageSize(reqModel.getPageNo());
     	
@@ -100,64 +96,56 @@ public class RoleController {
     }
 
     @PostMapping("/add")
-    public AddYemUserResponse add(HttpServletRequest request) {
-    	log.info("开始用户新增接口");
+    public AddYemRoleResponse add(HttpServletRequest request) {
+    	log.info("开始角色新增接口");
     	
-    	AddYemUserResponse resp = new AddYemUserResponse();
+    	AddYemRoleResponse resp = new AddYemRoleResponse();
     	
     	String param = request.getHeader(ApiConstant.ROUTE_KEY);
     	
-    	AddYemUserRequest reqModel = (AddYemUserRequest) JSONObject.parseObject(param, 
-    			AddYemUserRequest.class);
+    	AddYemRoleRequest reqModel = (AddYemRoleRequest) JSONObject.parseObject(param, 
+    			AddYemRoleRequest.class);
     	
-    	YemUser user = new YemUser();
-    	user.setUserCode(baseServiceImpl.getMcCode(McCodeTypeEnum.USER.toString()));
-    	user.setUserName(reqModel.getUserName());
-    	user.setMobile(reqModel.getMobile());
-    	user.setEmail(reqModel.getEmail());
-    	user.setSex(reqModel.getSex());
-    	user.setShopCode(reqModel.getShopCode());
-    	user.setValid(reqModel.getValid());
-    	user.setCreateTime(DateUtil.getDate());
-    	user.setUpdateTime(DateUtil.getDate());
+    	YemRole role = new YemRole();
+    	role.setRoleCode(baseServiceImpl.getMcCode(McCodeTypeEnum.ROLE.toString()));
+    	role.setRoleName(reqModel.getRoleName());
+    	role.setValid(reqModel.getValid());
+    	role.setCreateTime(DateUtil.getDate());
+    	role.setUpdateTime(DateUtil.getDate());
     	
-    	if (userService.addYemUser(user)) {
+    	if (roleService.addYemRole(role)) {
     		
-        	resp.setUserCode(user.getUserCode());
+        	resp.setRoleCode(role.getRoleCode());
     	} else {
     		
     		resp.setRespCode(Constants.RESP_BIZ_ERR_CODE);
-    		resp.setRespCode(Constants.UserMsg.USER_ADD_ERROR);
+    		resp.setRespCode(Constants.RoleMsg.ROLE_ADD_ERROR);
     	}
     	
     	return resp;
     }
 
     @PostMapping("/modify")
-    public ModifyYemUserResponse modify(HttpServletRequest request) {
-    	log.info("开始用户修改接口");
+    public ModifyYemRoleResponse modify(HttpServletRequest request) {
+    	log.info("开始角色修改接口");
     	
-    	ModifyYemUserResponse resp = new ModifyYemUserResponse();
+    	ModifyYemRoleResponse resp = new ModifyYemRoleResponse();
     	
     	String param = request.getHeader(ApiConstant.ROUTE_KEY);
     	
-    	ModifyYemUserRequest reqModel = (ModifyYemUserRequest) JSONObject.parseObject(param, 
-    			ModifyYemUserRequest.class);
+    	ModifyYemRoleRequest reqModel = (ModifyYemRoleRequest) JSONObject.parseObject(param, 
+    			ModifyYemRoleRequest.class);
     	
-    	YemUser user = new YemUser();
-    	user.setUserCode(baseServiceImpl.getMcCode(McCodeTypeEnum.USER.toString()));
-    	user.setUserName(reqModel.getUserName());
-    	user.setMobile(reqModel.getMobile());
-    	user.setEmail(reqModel.getEmail());
-    	user.setSex(reqModel.getSex());
-    	user.setShopCode(reqModel.getShopCode());
-    	user.setValid(reqModel.getValid());
-    	user.setUpdateTime(DateUtil.getDate());
+    	YemRole role = new YemRole();
+    	role.setRoleCode(reqModel.getRoleCode());
+    	role.setRoleName(reqModel.getRoleName());
+    	role.setValid(reqModel.getValid());
+    	role.setUpdateTime(DateUtil.getDate());
     	
-    	if (!userService.modifyYemUser(user)) {
+    	if (!roleService.modifyYemRole(role)) {
     		
     		resp.setRespCode(Constants.RESP_BIZ_ERR_CODE);
-    		resp.setRespCode(Constants.UserMsg.USER_MODIFY_ERROR);
+    		resp.setRespCode(Constants.RoleMsg.ROLE_MODIFY_ERROR);
     	}
     	
     	return resp;

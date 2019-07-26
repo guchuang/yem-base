@@ -1,17 +1,20 @@
 package com.yem.base.dao;
 
+import java.util.List;
+
+import com.yem.dto.YemShopDTO;
 import com.yem.entity.YemShop;
 
 public interface YemShopMapper {
-    int deleteByPrimaryKey(String shopId);
-
-    int insert(YemShop record);
 
     int insertSelective(YemShop record);
 
-    YemShop selectByPrimaryKey(String shopId);
+    YemShop selectByShopCode(Long shopCode);
 
-    int updateByPrimaryKeySelective(YemShop record);
+    List<YemShop> selectShopList(YemShopDTO dto);
 
-    int updateByPrimaryKey(YemShop record);
+    int selectShopListCount(YemShopDTO dto);
+
+    int updateByShopCodeSelective(YemShop record);
+
 }

@@ -1,17 +1,20 @@
 package com.yem.base.dao;
 
+import java.util.List;
+
+import com.yem.dto.YemServerDTO;
 import com.yem.entity.YemServer;
 
 public interface YemServerMapper {
-    int deleteByPrimaryKey(String serverId);
-
-    int insert(YemServer record);
 
     int insertSelective(YemServer record);
 
-    YemServer selectByPrimaryKey(String serverId);
+    YemServer selectByServerCode(Long serverCode);
+    
+    List<YemServer> selectServerList(YemServerDTO dto);
+    
+    int selectServerListCount(YemServerDTO dto);
 
-    int updateByPrimaryKeySelective(YemServer record);
+    int updateByServerCodeSelective(YemServer record);
 
-    int updateByPrimaryKey(YemServer record);
 }

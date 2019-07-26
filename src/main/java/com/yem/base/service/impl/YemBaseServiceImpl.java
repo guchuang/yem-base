@@ -7,12 +7,15 @@ import org.springframework.stereotype.Service;
 import com.yem.base.dao.YemMcCodeMapper;
 import com.yem.entity.YemMcCode;
 
+import lombok.Synchronized;
+
 @Service
 public class YemBaseServiceImpl {
 
 	@Autowired
 	private YemMcCodeMapper yemMcCodeMapper;
 	
+	@Synchronized
 	public Long getMcCode(String mcCodeType) {
 		Long code = null;
 		YemMcCode mcCode = yemMcCodeMapper.selectByMcCodeType(mcCodeType);

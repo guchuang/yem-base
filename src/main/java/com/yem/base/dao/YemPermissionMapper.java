@@ -1,17 +1,20 @@
 package com.yem.base.dao;
 
+import java.util.List;
+
+import com.yem.dto.YemPermissionDTO;
 import com.yem.entity.YemPermission;
 
 public interface YemPermissionMapper {
-    int deleteByPrimaryKey(String permissionId);
-
-    int insert(YemPermission record);
 
     int insertSelective(YemPermission record);
 
-    YemPermission selectByPrimaryKey(String permissionId);
+    YemPermission selectByPermissionCode(Long permissionCode);
 
-    int updateByPrimaryKeySelective(YemPermission record);
+    List<YemPermission> selectPermissionList(YemPermissionDTO record);
 
-    int updateByPrimaryKey(YemPermission record);
+    int selectPermissionListCount(YemPermissionDTO record);
+
+    int updateByPermissionCodeSelective(YemPermission record);
+
 }

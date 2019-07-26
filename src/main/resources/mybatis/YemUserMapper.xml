@@ -20,7 +20,7 @@
     user_id, user_code, user_name, password, shop_code, sex, mobile, email, valid, create_time, 
     create_by, update_time, update_by
   </sql>
-  <select id="selectByUserCode" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByUserCode" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from yem_user
